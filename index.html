@@ -23,12 +23,64 @@
             <div class="col-md-6" id="result-container" style="display: none;"></div>
         </div>
         <script>
-            document.getElementById('search-form').addEventListener('submit', function(event) {
-                event.preventDefault();
-                const url = document.getElementById('search').value;
-                const resultConstainer = document.getElementById('resul')
-                console.log(url)
-            })
+            const corsProxy = 'https://cors-anywhere.herokuapp.com'
+    		// const corsProxy = 'https://corsproxy.io/?'
+    		let urlList = [];
+    		
+    		document.getElementById('search-form').addEventListener('submit', function(event) {
+    			event.preventDefault();
+    			const url = document.getElementById('search').value;
+    			const resultContainer = document.getElementById('result-container');
+    			if (url && !urlList.includes(url)) {
+    				urlList.push(url);
+    				//updateList();
+    			}
+    			console.log(`Added "${url}" to the list.`);
+    			checkUrls();
+    			
+    		})
+    		
+    		function updateList() {
+    			let displayDiv = document.getElementById('result-container');
+    			displayDiv.innerHTML = '';
+    			urlList.forEach((item, index) => {
+    				let listItem = document.createElement('div');				
+    				let urlSpan = document.createElement('span');
+    				urlSpan.textContent = item;
+    				urlSpan.setAttribute('id', `url-span-${index}`);
+    				listItem.appendChild(urlSpan);
+    				listItem.setAttribute('id', `url-${index}`);
+    				let editButton = document.createElement('button');
+    				editButton.textContent = 'Edit';
+    				editButton.onclick = () => editUrl(urlSpan, editButton);
+    				listItem.appendChild(editButton);
+    				displayDiv.appendChild(listItem);
+    			});
+    		}
+    		
+    		function checkUrls() {
+    			if (urlList.length > 0) {
+    				urlList.forEach((item, index) => {
+    				url = corsProxy + '/' + item;
+    				fetch(url).then(response => {
+    					const listItem = document.getElementById(`url-${index}`);
+    					console.log('---->', listItem);
+    					if (response.ok) {
+    						console.log(response);
+    						//document.getElementById('url-0').style.color = 'purple';
+    						listItem.style.color = 'green';
+    					} else {
+    						listItem.style.color = 'red';
+    					}
+    				}).catch(error => {
+    					const listItem = document.getElementById(`url-${index}`);
+    					listItem.style.color = 'red';
+    					console.error(error);
+    				});	
+    				updateList();
+    				});
+    			}
+    		}
         </script>
     </body>
 </html>
