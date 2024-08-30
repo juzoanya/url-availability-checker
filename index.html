@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>URL Availability Checker</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h1 class="mt-5 mb-4">Availability Checker</h1>
+                <form id="search-form">
+                    <div class="mb-3">
+                        <label for="search" class="form-label visually-hidden">Search:</label>
+                        <input type="text" class="form-control form-control-lg" id="search" placeholder="enter web url here and click check button">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm">Check</button>
+                </form>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6" id="result-container" style="display: none;"></div>
+        </div>
+        <script>
+            document.getElementById('search-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+                const url = document.getElementById('search').value;
+                const resultConstainer = document.getElementById('resul')
+                console.log(url)
+            })
+        </script>
+    </body>
+</html>
