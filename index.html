@@ -52,10 +52,33 @@
     				listItem.setAttribute('id', `url-${index}`);
     				let editButton = document.createElement('button');
     				editButton.textContent = 'Edit';
-    				editButton.onclick = () => editUrl(urlSpan, editButton);
+    				editButton.onclick = () => editUrl(urlSpan, editButton, index);
     				listItem.appendChild(editButton);
     				displayDiv.appendChild(listItem);
     			});
+    		}
+
+            function editUrl(urlSpan, editButton, index) {
+    			const currentUrl = urlSpan.textContent;
+    			const input = document.createElement('input');
+    			input.type = 'text';
+    			input.value = currentUrl;
+    			urlSpan.replaceWith(input);
+    			editButton.textContent = 'Save';
+    			editButton.onclick = () => saveUrl(input, editButton, index);
+    		}
+    
+    		function saveUrl(input, editButton, index) {
+    			const updatedUrl = input.value.trim();
+    			const urlSpan = document.createElement('span');
+    			urlSpan.textContent = updatedUrl;
+    			urlSpan.setAttribute('id', `url-span-${index}`);
+    			urlList[index] = updatedUrl;
+    			input.replaceWith(urlSpan);
+    			editButton.textContent = 'Edit';
+    			editButton.onclick = () => editUrl(urlSpan, editButton, index);
+    			updateList();
+    			checkUrls();
     		}
     		
     		function checkUrls() {
