@@ -85,7 +85,6 @@
     				url = corsProxy + '/' + item;
     				fetch(url).then(response => {
     					const listItem = document.getElementById(`url-${index}`);
-    					console.log('---->', listItem);
     					if (response.ok) {
     						console.log(response);
     						listItem.style.color = 'green';
