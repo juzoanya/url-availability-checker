@@ -33,9 +33,7 @@
     			const resultContainer = document.getElementById('result-container');
     			if (url && !urlList.includes(url)) {
     				urlList.push(url);
-    				//updateList();
     			}
-    			console.log(`Added "${url}" to the list.`);
     			checkUrls();
     			
     		})
@@ -90,7 +88,6 @@
     					console.log('---->', listItem);
     					if (response.ok) {
     						console.log(response);
-    						//document.getElementById('url-0').style.color = 'purple';
     						listItem.style.color = 'green';
     					} else {
     						listItem.style.color = 'red';
@@ -104,6 +101,7 @@
     				});
     			}
     		}
+            setInterval(checkUrls, 30000);
         </script>
     </body>
 </html>
